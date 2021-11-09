@@ -1,0 +1,29 @@
+- hosts: server1
+  become: yes
+  tasks:
+   - name:
+     group:
+      name: "{{ item }}"
+      state: present
+     with_items:
+       - admin
+       - developers
+
+   - name: Prepare some users
+     user:
+       name: "{{ item.name }}"
+       groups: "{{ item.groups }}"
+       state: present
+     with_items:
+       - name: super_admin
+         groups: admin
+       - name: AzureDiamond
+         groups: developers
+
+   - name: Copy selected files
+     copy:
+      src: "{{ item }}"
+      dest: "/tmp/{{ item }}"
+      owner: AzureDiamond
+      group: developers
+     loop: [ nginx.yml, nginx2.yml, nginx3.yml ]

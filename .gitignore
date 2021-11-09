@@ -1,0 +1,12 @@
+*~
+*#
+
+*.retry
+
+*.terraform
+*.tfstate
+*.tfstate.backup
+*.tfstate.lock.info
+*.lock.hcl
+
+*.mypy_cache
