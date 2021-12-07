@@ -1,0 +1,39 @@
+Komendy, które wykonywałem na wykladzie.
+
+docker run python:3.10 python --version
+docker run ubuntu:20.04 python --version
+docker run ubuntu:20.04 apt --version
+docker run -it ubuntu:20.04 bash
+docker run -d -p 3000:80 nginx:latest
+docker ps
+docker logs angry_rubin 
+docker logs keen_mahavira 
+docker stop keen_mahavira 
+docker rm keen_mahavira 
+docker stop angry_rubin 
+docker rm angry_rubin 
+docker ps
+docker images
+ls
+ec hello_world.py 
+ec Dockerfile 
+docker build . -t hellopython:5
+docker run hellopython:5
+cd ../
+cd docker
+docker build . -t hellopython:5
+docker build . -t hellopython:5
+docker build . -t hellopython:5
+docker build . -t hellopython:5
+ls ../html/
+cat ../html/index.html 
+docker run -d -p 80:80 -v ~/cloud/cloud2021/html:/usr/share/nginx/html:ro nginx
+docker ps
+docker exec gifted_blackburn sh
+docker exec -it gifted_blackburn sh
+docker network create mynet
+docker run -d --name baza --net mynet -e MYSQL_ROOT_PASSWORD=12345 mysql
+docker ps
+docker logs -f baza
+docker run -it --net mynet alpine:3.15 sh
+docker ps
