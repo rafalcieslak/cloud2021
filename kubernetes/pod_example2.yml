@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: www
+  labels:
+    app: nginx
+
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts:
+    - mountPath: /usr/share/nginx/
+      name: www-data
+      readOnly: true
+  - name: git-sync
+    image: k8s.gcr.io/git-sync/git-sync:v3.3.5 # kubernetes/git-sync
+    env:
+    - name: GIT_SYNC_REPO
+      value: https://github.com/mdn/beginner-html-site-styled.git
+    - name: GIT_SYNC_ROOT
+      value: /data
+    - name: GIT_SYNC_DEST
+      value: html
+    volumeMounts:
+    - mountPath: /data
+      name: www-data
+
+  volumes:
+  - name: www-data
+    emptyDir: {}
+

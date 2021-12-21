@@ -1,0 +1,33 @@
+gcloud container clusters get-credentials main-k8s-cluster --region us-east1-b
+kubectl config get-contexts
+kubectl get nodes
+kubectl describe nodes
+kubectl cluster-info
+ls
+kubectl create -f pod_example.yml
+kubectl get pods
+kubectl describe pods
+kubectl logs example1
+kubectl exec example1 -it -- /bin/sh
+kubectl proxy
+curl 127.0.0.1:8001
+kubectl delete pod/example1
+kubectl create --save-config -f deployment_example.yml
+kubectl get deployments
+kubectl describe deployments
+kubectl get pods
+kubectl port-forward nginx-deployment-6897679c4b-5b79z 8080:80
+kubectl port-forward deployment/nginx-deployment 8080:80
+kubectl apply -f deployment_example.yml
+kubectl rollout status deployment/nginx-deployment
+kubectl rollout history deployment/nginx-deployment
+kubectl set image deployment/nginx-deployment nginx=nginx:1.18
+kubectl rollout status deployment/nginx-deployment
+kubectl rollout history deployment/nginx-deployment
+kubectl rollout undo deployment/nginx-deployment --to-revision 1
+kubectl rollout status deployment/nginx-deployment
+kubectl describe deployments
+kubectl create -f service_example.yml
+kubectl get services
+kubectl describe services nginx-service
+kubectl delete services nginx-service
