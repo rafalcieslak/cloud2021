@@ -1,0 +1,60 @@
+{
+    "family": "example-site",
+    "taskRoleArn": "arn:aws:iam::<AWS_ACCOUNT_ID>:role/ecs_task_role_for_example",
+    "containerDefinitions": [
+        {
+            "name": "example-web",
+            "hostname": "example-web",
+            "image": "<AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/example_web:<VERSION>",
+            "memoryReservation": 150,
+            "cpu": 150,
+            "workingDirectory": "/opt",
+            "command": [
+                "run.sh"
+            ],
+            "environment": [
+                {
+                    "name": "ENV",
+                    "value": "test"
+                }
+            ],
+            "secrets": [
+                {
+                    "valueFrom": "arn:aws:ssm:<AWS_REGION>:<AWS_ACCOUNT_ID>:parameter/DB_PASSWORD",
+                    "name": "DB_PASSWORD"
+                }
+            ],
+            "mountPoints": [
+                {
+                    "containerPath": "/shared",
+                    "sourceVolume": "shared"
+                }
+            ]
+        },
+        {
+            "name": "example-nginx",
+            "image": "<AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/example_nginx:<VERSION>",
+            "memoryReservation": 50,
+            "cpu": 100,
+            "portMappings": [
+                {
+                    "hostPort": 0,
+                    "protocol": "tcp",
+                    "containerPort": 80
+                }
+            ],
+            "links": [
+                "example-web"
+            ]
+        }
+    ],
+    "volumes": [
+        {
+            "name": "shared",
+            "dockerVolumeConfiguration": {
+                "scope": "task",
+                "driver": "local"
+            }
+        }
+    ]
+}
